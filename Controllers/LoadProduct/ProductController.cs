@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using API.Service.product;
 using API.Models;
+using API.Dtos;
 
 
 namespace API.Controllers.LoadProduct
@@ -26,6 +27,13 @@ namespace API.Controllers.LoadProduct
             Console.WriteLine($"Products count: {products.Count()}");
             return Ok(products.ToList());
         }
+        [HttpGet("search")]
+        public async Task<IActionResult> Search([FromQuery] SearchProductRequest request)
+        {
+            var result = await _productService.SearchProductsAsync(request);
+            return Ok(result);
+        }
+
 
         // GET: api/v1/product/{id}
         [HttpGet("{id}")]

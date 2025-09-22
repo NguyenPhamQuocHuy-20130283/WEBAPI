@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using API.Dtos;
+using API.Models;
 
 namespace API.Service.product
 
@@ -10,6 +11,7 @@ namespace API.Service.product
         Task<bool> AddProductAsync(Product newProduct);
         Task<bool> UpdateProductAsync(Product updatedProduct);
         Task<bool> DeleteProductAsync(int id);
+        Task<SearchProductResponse> SearchProductsAsync(SearchProductRequest request);
         Task<IEnumerable<Product>> GetNewProductsAsync();
     }
 }
