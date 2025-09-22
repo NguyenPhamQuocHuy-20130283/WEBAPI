@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+builder.WebHost.UseUrls($"http://*:{port}");
 // Add services to the container.
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
@@ -20,10 +22,15 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Lấy connection string từ environment variable nếu có, nếu không fallback về appsettings.json
+var connectionString = Environment.GetEnvironmentVariable("USER_DB_CONNECTION")
+                       ?? builder.Configuration.GetConnectionString("UserDataBase");
+
 builder.Services.AddDbContext<UserDBContext>(option =>
 {
-    option.UseSqlServer(builder.Configuration.GetConnectionString("UserDataBase"));
+    option.UseSqlServer(connectionString);
 });
+
 
 // Configure session
 builder.Services.AddDistributedMemoryCache(); // Required for session storage
@@ -55,7 +62,7 @@ app.UseCors(builder =>
            .AllowAnyMethod()
            .AllowAnyHeader();
 });
-
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllers();

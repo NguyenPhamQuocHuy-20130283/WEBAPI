@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
+using API.Dtos;
 using API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -89,5 +90,45 @@ namespace API.Service.product
             return await _dbContext.Products.OrderByDescending(p => p.Id).Take(3).ToListAsync();
 
         }
+
+        public async Task<SearchProductResponse> SearchProductsAsync(SearchProductRequest request)
+        {
+            var query = _dbContext.Products.AsQueryable();
+
+            if (!string.IsNullOrEmpty(request.Keyword))
+                query = query.Where(p => p.Name.Contains(request.Keyword) || p.Description.Contains(request.Keyword));
+
+            if (request.MinPrice.HasValue)
+                query = query.Where(p => p.Price >= request.MinPrice.Value);
+
+            if (request.MaxPrice.HasValue)
+                query = query.Where(p => p.Price <= request.MaxPrice.Value);
+
+            var totalItems = await query.CountAsync();
+
+            var products = await query
+                .OrderBy(p => p.Id)
+                .Skip((request.Page - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .Select(p => new ProductDto
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Price = p.Price,
+                    Description = p.Description
+                })
+                .ToListAsync();
+
+            return new SearchProductResponse
+            {
+                Page = request.Page,
+                PageSize = request.PageSize,
+                TotalItems = totalItems,
+                TotalPages = (int)Math.Ceiling(totalItems / (double)request.PageSize),
+                Data = products
+            };
+        }
+
+
     }
 }
