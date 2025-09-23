@@ -5,12 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
 {
-    public class UserDBContext : DbContext
+    public class UserDBContext(DbContextOptions options) : DbContext(options)
     {
-        public UserDBContext(DbContextOptions options) : base(options)
-        {
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Apply all configurations

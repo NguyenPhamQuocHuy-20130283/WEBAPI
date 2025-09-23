@@ -8,7 +8,7 @@ namespace API.Configuration
     {
         public void Configure(EntityTypeBuilder<OrderItem> builder)
         {
-            builder.ToTable("OrderItems");
+            builder.ToTable("OrderItem");
 
             // Định nghĩa khóa chính
             builder.HasKey(oi => oi.Id);

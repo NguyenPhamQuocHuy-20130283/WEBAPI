@@ -9,7 +9,7 @@ namespace API.Configuration
         public void Configure(EntityTypeBuilder<Category> builder)
         {
             // Đặt tên bảng
-            builder.ToTable("Categories");
+            builder.ToTable("Category");
 
             // Định nghĩa khóa chính
             builder.HasKey(c => c.Id);

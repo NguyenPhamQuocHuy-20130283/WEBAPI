@@ -8,7 +8,7 @@ namespace API.Configuration
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
-            builder.ToTable("Orders");
+            builder.ToTable("Order");
 
             // Định nghĩa khóa chính
             builder.HasKey(o => o.OrderID);
@@ -18,7 +18,7 @@ namespace API.Configuration
             builder.Property(o => o.OrderCode).HasMaxLength(100);
             builder.Property(o => o.CustomerID).IsRequired();
             builder.Property(o => o.TotalAmount).HasColumnType("decimal(18,2)").IsRequired();
-            builder.Property(o => o.OrderDate).IsRequired().HasDefaultValueSql("GETDATE()");
+            builder.Property(o => o.OrderDate).IsRequired().HasDefaultValueSql("CURRENT_TIMESTAMP");
             builder.Property(o => o.Status).HasMaxLength(50).IsRequired();
             builder.Property(o => o.DeliveryMethod).HasMaxLength(50);
             builder.Property(o => o.PaymentMethod).HasMaxLength(50);

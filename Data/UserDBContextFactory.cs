@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace API.Data
 {
@@ -14,7 +15,7 @@ namespace API.Data
             var connectionString = configurationRoot.GetConnectionString("UserDataBase");
 
             var optionBuilder = new DbContextOptionsBuilder<UserDBContext>();
-            optionBuilder.UseSqlServer(connectionString);
+            optionBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
             return new UserDBContext(optionBuilder.Options);
         }
     }

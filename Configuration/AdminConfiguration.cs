@@ -9,7 +9,7 @@ namespace API.Configuration
               public void Configure(EntityTypeBuilder<Admin> builder)
               {
                      // Đặt tên bảng
-                     builder.ToTable("Admins");
+                     builder.ToTable("Admin");
 
                      // Định nghĩa khóa chính
                      builder.HasKey(a => a.AdminID);

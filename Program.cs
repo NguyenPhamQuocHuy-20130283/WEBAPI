@@ -5,7 +5,7 @@ using API.Service.order;
 using API.Service.product;
 using API.Service.user;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +28,8 @@ var connectionString = Environment.GetEnvironmentVariable("USER_DB_CONNECTION")
 
 builder.Services.AddDbContext<UserDBContext>(option =>
 {
-    option.UseSqlServer(connectionString);
+    option.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+
 });
 
 
