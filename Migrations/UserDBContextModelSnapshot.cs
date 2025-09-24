@@ -50,7 +50,7 @@ namespace API.Migrations
 
                     b.HasKey("AdminID");
 
-                    b.ToTable("Admin", (string)null);
+                    b.ToTable("admin", (string)null);
                 });
 
             modelBuilder.Entity("API.Models.Category", b =>
@@ -73,7 +73,7 @@ namespace API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category", (string)null);
+                    b.ToTable("category", (string)null);
                 });
 
             modelBuilder.Entity("API.Models.Order", b =>
@@ -122,7 +122,7 @@ namespace API.Migrations
 
                     b.HasIndex("CustomerID");
 
-                    b.ToTable("Order", (string)null);
+                    b.ToTable("order", (string)null);
                 });
 
             modelBuilder.Entity("API.Models.OrderItem", b =>
@@ -151,7 +151,7 @@ namespace API.Migrations
 
                     b.HasIndex("ProductID");
 
-                    b.ToTable("OrderItem", (string)null);
+                    b.ToTable("orderitem", (string)null);
                 });
 
             modelBuilder.Entity("API.Models.Product", b =>
@@ -202,7 +202,7 @@ namespace API.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Product", (string)null);
+                    b.ToTable("product", (string)null);
 
                     b.HasData(
                         new
@@ -571,7 +571,7 @@ namespace API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User", (string)null);
+                    b.ToTable("user", (string)null);
 
                     b.HasData(
                         new

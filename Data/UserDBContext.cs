@@ -25,6 +25,10 @@ namespace API.Data
                 .HasOne(oi => oi.Product)
                 .WithMany()
                 .HasForeignKey(oi => oi.ProductID);
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                entityType.SetTableName(entityType.GetTableName()?.ToLower());
+            }
 
             // Apply any seed data if necessary
             modelBuilder.Seed();
